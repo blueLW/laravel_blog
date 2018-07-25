@@ -14,6 +14,7 @@ class Login extends Common
 {
 	//显示主页
 	public function index(Request $request){
+        session('loging')->forget('key');
         //验证是否登录
         if($this->checkLogin()){
             //跳转后台
@@ -45,7 +46,7 @@ class Login extends Common
     	}
     }
 
-
+//❤️
 
     //生成验证码
     public function code(){
