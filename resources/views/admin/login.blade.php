@@ -10,9 +10,11 @@
 		<h1>Blog</h1>
 		<h2>欢迎使用博客管理平台</h2>
 		<div class="form">
-
-			<p style="color:red">用户名错误</p>
-			
+			@if (session('msg'))
+			<p style="color:red">{{session('msg')}}</p>
+			@else
+			<p style="color:red">请输入用户名和密码!</p>
+			@endif
 			<form action="{{url('/admin/login')}}" method="post">
 				{!! csrf_field() !!}
 				<ul>
