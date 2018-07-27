@@ -5,6 +5,9 @@ use App\Http\Controllers\Controller;
 
 class Common extends Controller
 {
-    //公共控制器
-
+    //退出
+	public function logout(){
+		session()->forget('loging');
+		return redirect('admin');
+	}
 }

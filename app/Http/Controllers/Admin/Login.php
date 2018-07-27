@@ -14,7 +14,6 @@ class Login extends Common
 {
 	//显示主页
 	public function index(Request $request){
-        session('loging')->forget('key');
         //验证是否登录
         if($this->checkLogin()){
             //跳转后台
@@ -43,9 +42,12 @@ class Login extends Common
             if(!$model->check($data)){
                return back()->withInput()->with('msg','密码或用户名错误!');
             }
+            //登录成功跳转到admin页面
+            return redirect('admin/index');
     	}
     }
 
+    //session()->forget('loging');清除session
 //❤️
 
     //生成验证码

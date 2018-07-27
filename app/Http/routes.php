@@ -24,12 +24,20 @@
     return view('welcome');
 });
 */
+
 //laravel版本大于 5.2.27的 web 中间件为全局自动加载,无需手动加载
 Route::group(['middleware'=>[]],function(){
-	Route::get('/admin','Admin\Login@index');        //登录控制器
-	Route::get('/admin/index','Admin\Admin@index');  //后台管理页面
+	Route::get('/admin','Admin\Login@index');        	//登录控制器
 	Route::post('/admin/login','Admin\Login@login');
 	Route::get('/admin/code','Admin\Login@code');
 	//Route::get('/admin/getCode','Admin\Login@getCode');
 
+});
+
+//Admin.login中间件登录验证
+Route::group(['middleware'=>['Admin.login'],'namespace'=>'Admin'],function(){
+	Route::get('/admin/index','Admin@index');  	//后台管理页面
+	Route::get('/admin/info','Admin@info');  		//info页面
+	Route::get('/logout','Common@logout');
+	Route::any('/admin/pass','Admin@pass');	
 });

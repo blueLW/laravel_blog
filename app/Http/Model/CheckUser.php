@@ -28,4 +28,25 @@ class CheckUser extends Model
     	session(['loging'=>$loging]);  //保存session
     	return true;
     }
+
+    //更新当前管理员密码
+    public function upPass($data){
+        $user_id = session()->has('loging.userid') ? session('loging.userid'):false;
+        if (!$user_id){
+            return false;
+        }
+        $info = self::find($user_id);
+        //校验旧密码
+        $saved_pass = Crypt::decrypt($info->password);
+        if ($saved_pass!==$data['password_o']){
+            return array('msg'=>'旧密码不正确!');
+        }else{
+            //更新密码
+            $info->password = Crypt::encrypt($data['password']);
+            if($info->update()){
+                return true;
+            }
+            return array('msg'=>'修改失败,请重试!');
+        }        
+    }
 }	
