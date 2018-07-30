@@ -40,4 +40,5 @@ Route::group(['middleware'=>['Admin.login'],'namespace'=>'Admin'],function(){
 	Route::get('/admin/info','Admin@info');  		//info页面
 	Route::get('/logout','Common@logout');
 	Route::any('/admin/pass','Admin@pass');	
+	Route::resource('/admin/category','Category'); //为category控制器注册资源
 });
