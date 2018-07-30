@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="{{asset('resources/views/admin/style/font/css/font-awesome.min.css')}}">
     <script type="text/javascript" src="{{asset('resources/views/admin/style/js/jquery.js')}}"></script>
     <script type="text/javascript" src="{{asset('resources/views/admin/style/js/ch-ui.admin.js')}}"></script>
+    <script type="text/javascript" src="{{asset('resources/org/layer/layer.js')}}"></script>
 </head>
 <body>
     <!--面包屑导航 开始-->
@@ -58,23 +59,23 @@
                         <th class="tc" width="5%"><input type="checkbox" name=""></th>
                         <th class="tc">排序</th>
                         <th class="tc">ID</th>
-                        <th>分类名称</th>
+                        <th width="16%">分类名称</th>
                         <th>标题</th>
-                        <th>关键字</th>
+                        <th width='14%'>关键字</th>
                         <th>浏览</th>
-                        <th>更新时间</th>
-                        <th>评论</th>
-                        <th>操作</th>
+                        <th width='10%'>更新时间</th>
+                        <th width='15%'>评论</th>
+                        <th width='6%'>操作</th>
                     </tr>
                     @foreach($data as $k=>$v)
                     <tr>
                         <td class="tc"><input type="checkbox" name="id[]" value="59"></td>
                         <td class="tc">
-                            <input type="text" name="ord[]" value="{{$v['cate_order']}}">
+                            <input type="text" name="ord[]" onchange="changeOrder(this,{{$v['cate_id']}})" value="{{$v['cate_order']}}">
                         </td>
                         <td class="tc">{{$v['cate_id']}}</td>
                         <td>
-                            <a href="#">{{$v['cate_name']}}</a>
+                            <a href="#">{{$v['_cate_name']}}</a>
                         </td>
                         <td>{{$v['cate_title']}}</td>
                         <td>{{$v['cate_keywords']}}</td>
@@ -124,7 +125,24 @@
     </form>
     <!--搜索结果页面 列表 结束-->
 
-
+<script>
+    function changeOrder(obj,cateid){
+        var order = obj.value
+            _url = "{{url('admin/cate/changeorder')}}";
+        //ajax异步
+        $.ajax({
+            url:_url,
+            type:'post',
+            data:{
+                'value':order,
+                'id':cateid,
+                '_token':"{{ csrf_token() }}"
+            },
+            success:function(res){
+                layer.msg(res.msg,{icon: 6});
+            }});
+    }
+</script>
 
 </body>
 </html>

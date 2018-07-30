@@ -38,7 +38,8 @@ Route::group(['middleware'=>[]],function(){
 Route::group(['middleware'=>['Admin.login'],'namespace'=>'Admin'],function(){
 	Route::get('/admin/index','Admin@index');  	//后台管理页面
 	Route::get('/admin/info','Admin@info');  		//info页面
-	Route::get('/logout','Common@logout');
-	Route::any('/admin/pass','Admin@pass');	
+	Route::get('/logout','Common@logout');         //退出
+	Route::any('/admin/pass','Admin@pass');			//密码编辑
+	Route::post('/admin/cate/changeorder','Category@changeOrder'); //改变排序
 	Route::resource('/admin/category','Category'); //为category控制器注册资源
 });
