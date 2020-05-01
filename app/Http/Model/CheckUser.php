@@ -16,7 +16,7 @@ class CheckUser extends Model
     //校验成功返回,将用户信息保存在session中并返回 true 失败返回 false
     public function check($data){
     	$info = self::where('username',$data['username'])->first();
-    	$savePass = Crypt::decrypt($info->password);
+    	$info && $savePass = Crypt::decrypt($info->password);
     	if ($data['password']!==$savePass) return false;
 
     	//保存登录人信息,并返回true;

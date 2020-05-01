@@ -17,9 +17,9 @@
 
 });
 */
-/*Route::get('/login', function () {
-    return view('welcome',array('name'=>'❤️'));
-});*/
+Route::get('/', function () {
+    return view('welcome',array('msg'=>'❤️','name'=>'HELLO,World!'));
+});
 /*Route::get('/login', function () {
     return view('welcome');
 });
